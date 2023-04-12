@@ -1,0 +1,22 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT license.
+
+# Build Artifacts
+target/
+
+# vim
+*.swo
+*.swp
+
+# vscode
+.vscode/
+
+# gdb
+.gdb.*
+
+# ctags
+tags
+tags.*
+
+# rust
+Cargo.lock

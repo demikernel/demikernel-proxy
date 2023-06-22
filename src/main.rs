@@ -85,13 +85,13 @@ impl TcpProxy {
         };
 
         // Instantiate LibOS for handling incoming flows.
-        let mut catnap: LibOS = match LibOS::new(LibOSName::Catnap) {
+        let mut catnap: LibOS = match LibOS::new(libos_name) {
             Ok(libos) => libos,
             Err(e) => anyhow::bail!("failed to initialize libos (error={:?})", e),
         };
 
         // Instantiate LibOS for handling outgoing flows.
-        let catloop: LibOS = match LibOS::new(libos_name) {
+        let catloop: LibOS = match LibOS::new(LibOSName::Catloop) {
             Ok(libos) => libos,
             Err(e) => anyhow::bail!("failed to initialize libos (error={:?})", e),
         };

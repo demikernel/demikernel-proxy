@@ -408,7 +408,7 @@ impl TcpProxy {
         }
     }
 
-    /// Handles the completion of a `push()` operation on an outgoing flow.
+    /// Handles the completion of a `pop()` operation on an outgoing flow.
     fn handle_outgoing_pop(&mut self, qr: &demi_qresult_t) {
         let outgoing_sga: demi_sgarray_t = unsafe { qr.qr_value.sga };
         let catloop_qd: QDesc = qr.qr_qd.into();
@@ -531,7 +531,7 @@ impl TcpProxy {
                 self.outgoing_qds.remove(&catloop_socket);
                 self.incoming_qds_map.remove(&catloop_socket);
             },
-            Err(e) => println!("ERRPR: failed to close socket (error={:?})", e),
+            Err(e) => println!("ERROR: failed to close socket (error={:?})", e),
         }
     }
 

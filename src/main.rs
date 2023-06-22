@@ -149,7 +149,7 @@ impl TcpProxy {
                     demi_opcode_t::DEMI_OPC_PUSH => self.handle_incoming_push(&qr),
                     demi_opcode_t::DEMI_OPC_FAILED => {
                         // Check if this is an unrecoverable error.
-                        if qr.qr_ret != libc::ECONNRESET {
+                        if qr.qr_ret != libc::ECONNRESET as i64 {
                             anyhow::bail!("operation failed")
                         }
                         println!("WARN: client reset connection");
@@ -175,7 +175,7 @@ impl TcpProxy {
                     demi_opcode_t::DEMI_OPC_PUSH => self.handle_outgoing_push(&qr),
                     demi_opcode_t::DEMI_OPC_FAILED => {
                         // Check if this is an unrecoverable error.
-                        if qr.qr_ret != libc::ECONNRESET {
+                        if qr.qr_ret != libc::ECONNRESET as i64 {
                             anyhow::bail!("operation failed")
                         }
                         println!("WARN: server reset connection");

@@ -22,7 +22,7 @@ license-file = "LICENSE.txt"
 [dependencies]
 
 # Third Party
-anyhow = "1.0.70"
+anyhow = "1.0.71"
 libc = "0.2.141"
 
 # Demikernel Organization

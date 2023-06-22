@@ -523,7 +523,6 @@ impl TcpProxy {
 
         match self.catloop.close(catloop_socket) {
             Ok(_) => {
-                // assert_eq!(catloop_qts.len(), 1);
                 let qts: HashMap<QToken, QDesc> = self
                     .outgoing_qts_map
                     .drain_filter(|_k, v| *v == catloop_socket)

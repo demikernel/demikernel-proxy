@@ -26,7 +26,7 @@ anyhow = "1.0.71"
 libc = "0.2.146"
 
 # Demikernel Organization
-demikernel = { git = "https://github.com/demikernel/demikernel", branch = "dev"}
+demikernel = { git = "https://github.com/demikernel/demikernel", branch = "wip-dev"}
 
 #=======================================================================================================================
 # Features

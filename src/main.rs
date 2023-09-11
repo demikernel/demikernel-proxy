@@ -1,8 +1,6 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-#![feature(drain_filter)]
-#![feature(hash_drain_filter)]
 #![feature(never_type)]
 
 //======================================================================================================================
@@ -509,27 +507,14 @@ impl TcpProxy {
     fn close_client(&mut self, catnap_socket: QDesc, catloop_socket: QDesc) {
         match self.catnap.close(catnap_socket) {
             Ok(_) => {
-                let qts: HashMap<QToken, QDesc> = self
-                    .incoming_qts_map
-                    .drain_filter(|_k, v| *v == catnap_socket)
-                    .collect();
-                let _: Vec<_> = self.incoming_qts.drain_filter(|x| qts.contains_key(x)).collect();
-                self.incoming_qds.remove(&catnap_socket);
-                self.outgoing_qds_map.remove(&catnap_socket);
-                self.nclients -= 1;
+                todo!("handle cancellation of tokens")
             },
             Err(e) => println!("ERROR: failed to close socket (error={:?})", e),
         }
 
         match self.catloop.close(catloop_socket) {
             Ok(_) => {
-                let qts: HashMap<QToken, QDesc> = self
-                    .outgoing_qts_map
-                    .drain_filter(|_k, v| *v == catloop_socket)
-                    .collect();
-                let _: Vec<_> = self.outgoing_qts.drain_filter(|x| qts.contains_key(x)).collect();
-                self.outgoing_qds.remove(&catloop_socket);
-                self.incoming_qds_map.remove(&catloop_socket);
+                todo!("handle cancellation of tokens")
             },
             Err(e) => println!("ERROR: failed to close socket (error={:?})", e),
         }

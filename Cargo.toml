@@ -22,11 +22,11 @@ license-file = "LICENSE.txt"
 [dependencies]
 
 # Third Party
-anyhow = "1.0.71"
-libc = "0.2.146"
+anyhow = "1.0.75"
+libc = "0.2.149"
 
 # Demikernel Organization
-demikernel = { git = "https://github.com/demikernel/demikernel", branch = "dev"}
+demikernel = { git = "https://github.com/microsoft/demikernel", branch = "dev"}
 
 #=======================================================================================================================
 # Features

@@ -507,14 +507,22 @@ impl TcpProxy {
     fn close_client(&mut self, catnap_socket: QDesc, catloop_socket: QDesc) {
         match self.catnap.close(catnap_socket) {
             Ok(_) => {
-                todo!("handle cancellation of tokens")
+                println!("handle cancellation of tokens (catnap_socket={:?})", catnap_socket);
+                self.incoming_qds.remove(&catnap_socket).unwrap();
+                self.outgoing_qds_map.remove(&catnap_socket).unwrap();
+                let qts_drained: HashMap<QToken, QDesc> = self.incoming_qts_map.extract_if(|_k, v| v == &catnap_socket).collect();
+                let _: Vec<_> = self.incoming_qts.extract_if(|x| qts_drained.contains_key(x)).collect();
             },
             Err(e) => println!("ERROR: failed to close socket (error={:?})", e),
         }
 
         match self.catloop.close(catloop_socket) {
             Ok(_) => {
-                todo!("handle cancellation of tokens")
+                println!("handle cancellation of tokens (catloop_socket={:?})", catloop_socket);
+                self.outgoing_qds.remove(&catloop_socket).unwrap();
+                self.incoming_qds_map.remove(&catloop_socket).unwrap();
+                let qts_drained: HashMap<QToken, QDesc> = self.outgoing_qts_map.extract_if(|_k, v| v == &catloop_socket).collect();
+                let _: Vec<_> = self.outgoing_qts.extract_if(|x| qts_drained.contains_key(x)).collect();
             },
             Err(e) => println!("ERROR: failed to close socket (error={:?})", e),
         }

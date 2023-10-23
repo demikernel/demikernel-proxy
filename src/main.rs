@@ -2,6 +2,8 @@
 // Licensed under the MIT license.
 
 #![feature(never_type)]
+#![feature(extract_if)]
+#![feature(hash_extract_if)]
 
 //======================================================================================================================
 // Imports
@@ -526,6 +528,7 @@ impl TcpProxy {
             },
             Err(e) => println!("ERROR: failed to close socket (error={:?})", e),
         }
+        self.nclients -= 1;
     }
 
     /// Polls incoming operations that are pending, with a timeout.

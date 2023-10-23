@@ -19,10 +19,10 @@ use ::demikernel::{
     QDesc,
     QToken,
 };
+use std::net::SocketAddr;
 use ::std::{
     collections::HashMap,
     env,
-    net::SocketAddrV4,
     slice,
     str::FromStr,
     time::{
@@ -43,7 +43,7 @@ struct TcpProxy {
     /// Number of clients that are currently connected.
     nclients: usize,
     /// Remote socket address.
-    remote_addr: SocketAddrV4,
+    remote_addr: SocketAddr,
     /// Socket for accepting incoming connections.
     local_socket: QDesc,
     /// Queue descriptors of incoming connections.
@@ -75,7 +75,7 @@ impl TcpProxy {
     const OUTGOING_LENGTH: usize = 1024;
 
     /// Instantiates a TCP proxy that accepts incoming flows from `local_addr` and forwards them to `remote_addr`.
-    pub fn new(local_addr: SocketAddrV4, remote_addr: SocketAddrV4) -> Result<Self> {
+    pub fn new(local_addr: SocketAddr, remote_addr: SocketAddr) -> Result<Self> {
         // Retrieve LibOS name from environment variables.
         let libos_name: LibOSName = match LibOSName::from_env() {
             Ok(libos_name) => libos_name.into(),
@@ -576,7 +576,7 @@ impl TcpProxy {
     }
 
     /// Setups local socket.
-    fn setup_local_socket(catnap: &mut LibOS, local_addr: SocketAddrV4) -> Result<QDesc> {
+    fn setup_local_socket(catnap: &mut LibOS, local_addr: SocketAddr) -> Result<QDesc> {
         // Create local socket.
         let local_socket: QDesc = match catnap.socket(libc::AF_INET, libc::SOCK_STREAM, 0) {
             Ok(qd) => qd,
@@ -622,8 +622,8 @@ pub fn main() -> Result<()> {
         return Ok(());
     }
 
-    let local_addr: SocketAddrV4 = SocketAddrV4::from_str(&args[1])?;
-    let remote_addr: SocketAddrV4 = SocketAddrV4::from_str(&args[2])?;
+    let local_addr: SocketAddr = SocketAddr::from_str(&args[1])?;
+    let remote_addr: SocketAddr = SocketAddr::from_str(&args[2])?;
     let mut proxy: TcpProxy = TcpProxy::new(local_addr, remote_addr)?;
     proxy.run()?;
 }

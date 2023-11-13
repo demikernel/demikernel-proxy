@@ -35,6 +35,9 @@ demikernel = { git = "https://github.com/microsoft/demikernel", branch = "dev"}
 [features]
 default = [ "catnap-libos" ]
 catnap-libos = [ "demikernel/catnap-libos", "demikernel/catloop-libos" ]
+catnip-libos = [ "demikernel/catnip-libos", "demikernel/catloop-libos" ]
+mlx4 = ["demikernel/mlx4"]
+mlx5 = ["demikernel/mlx5"]
 
 #=======================================================================================================================
 # Profile

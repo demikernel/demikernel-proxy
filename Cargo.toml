@@ -23,7 +23,7 @@ license-file = "LICENSE.txt"
 
 # Third Party
 anyhow = "1.0.80"
-libc = "0.2.149"
+libc = "0.2.153"
 
 # Demikernel Organization
 demikernel = { git = "https://github.com/microsoft/demikernel", branch = "dev"}
